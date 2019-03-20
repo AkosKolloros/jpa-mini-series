@@ -18,6 +18,7 @@ public class Series {
     private String title;
 
     @Singular
+    @Enumerated(EnumType.STRING)
     @ElementCollection
     @EqualsAndHashCode.Exclude
     private List<Genre> genres;

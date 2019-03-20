@@ -1,5 +1,6 @@
 package com.codecool.miniseries;
 
+import com.codecool.miniseries.entity.Episode;
 import com.codecool.miniseries.entity.Genre;
 import com.codecool.miniseries.entity.Season;
 import com.codecool.miniseries.entity.Series;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -27,6 +29,17 @@ public class MiniSeriesApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
+            Episode episode1 = Episode.builder()
+                    .title("Pilot")
+                    .originalAirDate(LocalDate.of(2013, 12, 2))
+                    .directedBy("Justin Roiland")
+                    .build();
+
+            Episode episode2 = Episode.builder()
+                    .title("Lawnmover Dog")
+                    .originalAirDate(LocalDate.of(2013, 12, 9))
+                    .directedBy("John Rice")
+                    .build();
 
             Season season1 = Season.builder()
                     .title("Season 1")
@@ -43,6 +56,8 @@ public class MiniSeriesApplication {
                             "undetectable. When Beth and Jerry go on vacation, Rick and the kids have a party with " +
                             "numerous guests that turn the house into a mess. Rick freezes time so that he and the " +
                             "kids can repair the house, before their parents return.")
+                    .episode(episode1)
+                    .episode(episode2)
                     .numberOfEpisodes(11)
                     .build();
 
@@ -71,6 +86,9 @@ public class MiniSeriesApplication {
                     .season(season1)
                     .season(season2)
                     .build();
+
+            episode1.setSeason(season1);
+            episode2.setSeason(season1);
 
             season1.setSeries(rickAndMorty);
             season2.setSeries(rickAndMorty);

@@ -26,7 +26,7 @@ public class Series {
     private List<String> createdBy;
 
     @Singular
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "series",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private List<Season> seasons;
 }

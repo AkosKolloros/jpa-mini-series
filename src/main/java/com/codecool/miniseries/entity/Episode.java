@@ -5,11 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +25,15 @@ public class Episode {
 
     private LocalDate originalAirDate;
 
+    @Transient
+    private long age;
+
     @ManyToOne
     private Season season;
+
+    public void calculateAge() {
+        if (originalAirDate != null) {
+            age = ChronoUnit.YEARS.between(originalAirDate, LocalDate.now());
+        }
+    }
 }
